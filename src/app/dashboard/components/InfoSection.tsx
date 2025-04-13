@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-
+import coin from '@/Images/coin.png'
 interface InfoItemProps {
     title: string;
     children: React.ReactNode;
@@ -33,7 +33,7 @@ const InfoSection: React.FC = () => {
             <InfoItem title="Coins">
                 <div className="flex items-center gap-1">
                     0
-                    <Image src="/images/coin.png" alt="Coin" width={20} height={20} />
+                    <Image src={coin} alt="Coin" width={20} height={20} />
                 </div>
             </InfoItem>
 
