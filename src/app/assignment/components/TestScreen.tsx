@@ -166,7 +166,7 @@ export const TestScreen: React.FC = () => {
           <div className="flex w-full flex-col items-stretch max-md:max-w-full">
             <div className="flex w-full flex-col items-stretch max-md:max-w-full">
               <h1 className="text-[#616464] text-center text-xl font-semibold leading-[1.1] max-md:max-w-full">
-                Select the missing words in the correct order
+                Select the missing words in the correct order. First select the blank and then answer.
               </h1>
               <p className="text-center text-gray-500 mt-2 mb-4">
                 Question {currentQuestionIndex + 1} of {totalQuestions}
