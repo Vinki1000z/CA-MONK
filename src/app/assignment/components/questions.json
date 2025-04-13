@@ -1,0 +1,27 @@
+[
+        {
+          "questionId": "b28af948-db8b-465e-92e6-3d42534c4533",
+          "question": "The company's _____________ approach to product development _____________ customer feedback at every stage, _____________ user satisfaction and _____________ a loyal consumer base.",
+          "questionType": "text",
+          "answerType": "options",
+          "options": ["Incorporated", "User-centric", "Enhancing", "Cultivating"],
+          "correctAnswer": ["User-centric", "Incorporated", "Enhancing", "Cultivating"]
+        },
+        {
+          "questionId": "6e6534ea-260a-4c26-96fd-f830b27601fb",
+          "question": "The _____________ musical performance _____________ elements from various genres, _____________ the audience with its unique sound and _____________ critical acclaim from industry experts.",
+          "questionType": "text",
+          "answerType": "options",
+          "options": ["Captivating", "Eclectic", "Garnering", "Blended"],
+          "correctAnswer": ["Eclectic", "Blended", "Captivating", "Garnering"]
+        },
+        {
+          "questionId": "7186e3da-0384-460a-af19-5a3984758e78",
+          "question": "The scientist's _____________ research on quantum computing _____________ new possibilities for data processing, _____________ traditional limitations and _____________ the way for groundbreaking technological advancements.",
+          "questionType": "text",
+          "answerType": "options",
+          "options": ["Pioneering", "Paving", "Overcoming", "Opened up"],
+          "correctAnswer": ["Pioneering", "Opened up", "Overcoming", "Paving"]
+        }
+      ]
+  
