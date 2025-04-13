@@ -11,7 +11,6 @@ import 'react-circular-progressbar/dist/styles.css';
 export default function Page() {
   const router = useRouter();
   const [showResult, setShowResult] = useState(false);
-  const [userAnswers, setUserAnswers] = useState<Array<Array<string | null>>>([]);
   const [score, setScore] = useState(0);
   const [promptData, setPromptData] = useState<any[]>([]);
 
@@ -23,7 +22,7 @@ export default function Page() {
       router.push("/dashboard");
     } else {
       try {
-        setUserAnswers(JSON.parse(storedAnswers));
+  
         const score = parseInt(storedScore, 10);
         const percentageScore = (score / 10) * 100; 
         setScore(percentageScore);

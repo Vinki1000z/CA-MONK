@@ -5,7 +5,6 @@ import { QuestionPrompt } from "./QuestionPrompt";
 import { WordBank } from "./WordBank";
 import { useRouter } from 'next/navigation';
 import questions from './questions.json';
-import { json } from "stream/consumers";
 
 export const TestScreen: React.FC = () => {
   const router = useRouter();
