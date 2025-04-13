@@ -4,16 +4,13 @@ import React from "react";
 import Header from "./Header";
 import InfoSection from "./InfoSection";
 import ActionButtons from "./ActionButtons";
-
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const SentenceConstruction: React.FC = () => {
+  const router = useRouter();
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
       <main className="flex flex-col items-center w-full min-h-screen bg-stone-50">
         <Header />
 
@@ -37,8 +34,8 @@ const SentenceConstruction: React.FC = () => {
           </div>
 
           <ActionButtons
-            onBack={() => console.log("Back clicked")}
-            onStart={() => console.log("Start clicked")}
+            onBack={() => router.push('/dashbaord')}
+            onStart={() => router.push('/assignment')}
           />
         </section>
       </main>

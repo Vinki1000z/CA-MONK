@@ -3,9 +3,9 @@ import { Timer } from "./Timer";
 import { ProgressBar } from "./ProgressBar";
 import { QuestionPrompt } from "./QuestionPrompt";
 import { WordBank } from "./WordBank";
-import { NavigationControls } from "./NavigationControls";
 import { useRouter } from 'next/navigation';
-import questions from '@/app/assignment/components/questions.json';
+import questions from './questions.json';
+import { json } from "stream/consumers";
 
 export const TestScreen: React.FC = () => {
   const router = useRouter();
@@ -20,6 +20,7 @@ export const TestScreen: React.FC = () => {
 
   // Initialize user answers array with empty arrays for each question
   useEffect(() => {
+    localStorage.clear();
     const initialUserAnswers = questions.map(() => [null, null, null, null]);
     setUserAnswers(initialUserAnswers);
     
@@ -112,6 +113,15 @@ export const TestScreen: React.FC = () => {
 
   // Update word bank when changing questions
   useEffect(() => {
+    console.log(currentQuestionIndex,totalQuestions);
+    if (currentQuestionIndex == totalQuestions ) {
+
+      const finalScore = calculateScore();
+      localStorage.setItem("score", JSON.stringify(score));
+      localStorage.setItem("userAnswers",JSON.stringify(userAnswers));
+      console.log(`Test completed. Score: ${finalScore}/${totalQuestions}`);
+      router.push("/feedBack");
+    }
     setupWordBank(currentQuestionIndex);
   }, [currentQuestionIndex]);
 
@@ -136,7 +146,7 @@ export const TestScreen: React.FC = () => {
         <div className="w-full max-md:max-w-full">
           <div className="flex w-full items-center gap-[40px_100px] whitespace-nowrap justify-between flex-wrap max-md:max-w-full">
             <Timer
-              initialTime={10}
+              initialTime={30}
               currentQuestionIndex={currentQuestionIndex}
               setCurrentQuestionIndex={setCurrentQuestionIndex}
               totalQuestions={totalQuestions - 1}

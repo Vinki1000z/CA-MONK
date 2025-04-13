@@ -42,7 +42,7 @@ export const Timer: React.FC<TimerProps> = ({
   useEffect(() => {
     if (timerEnded) {
       // Handle time end
-      if (currentQuestionIndex < totalQuestions) {
+      if (currentQuestionIndex <=totalQuestions) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       }
       
