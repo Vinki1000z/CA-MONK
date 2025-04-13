@@ -7,12 +7,18 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { PromptCard } from './components/PromptCard';
 import questions from '@/app/assignment/components/questions.json'; // Ensure this JSON is structured correctly
 import 'react-circular-progressbar/dist/styles.css';
-
+interface PromptCardProps {
+  promptNumber: number;
+  totalPrompts: number;
+  question: string;
+  answer: string;
+  status: string;
+}
 export default function Page() {
   const router = useRouter();
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
-  const [promptData, setPromptData] = useState<any[]>([]);
+  const [promptData, setPromptData] = useState<PromptCardProps[]>([]);
 
   useEffect(() => {
     const storedAnswers = localStorage.getItem("userAnswers");
