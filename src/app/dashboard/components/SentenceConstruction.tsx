@@ -6,7 +6,7 @@ import InfoSection from "./InfoSection";
 import ActionButtons from "./ActionButtons";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import penPaper from "@/images/pen_paper.png";
+import penPaper from "@/Images/pen_paper.png"
 
 
 const SentenceConstruction: React.FC = () => {
