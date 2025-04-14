@@ -5,11 +5,11 @@ import { QuestionPrompt } from "./QuestionPrompt";
 import { WordBank } from "./WordBank";
 import { useRouter } from 'next/navigation';
 import questions from './questions.json';
-
+import { IoArrowForwardSharp } from "react-icons/io5";
 export const TestScreen: React.FC = () => {
   const router = useRouter();
   const totalQuestions = questions.length;
-  
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
   const [userAnswers, setUserAnswers] = useState<Array<Array<string | null>>>([]);
@@ -22,7 +22,7 @@ export const TestScreen: React.FC = () => {
     localStorage.clear();
     const initialUserAnswers = questions.map(() => [null, null, null, null]);
     setUserAnswers(initialUserAnswers);
-    
+
     // Setup initial word bank for the first question
     setupWordBank(currentQuestionIndex);
   }, []);
@@ -30,7 +30,7 @@ export const TestScreen: React.FC = () => {
   // Setup word bank when moving to a new question
   const setupWordBank = (questionIndex: number) => {
     if (!questions[questionIndex]) return;
-    
+
     const options = questions[questionIndex].options;
     const newSlots = options.map((word, index) => ({
       id: index.toString(),
@@ -38,14 +38,14 @@ export const TestScreen: React.FC = () => {
       isSelected: false
     }));
     setSlots(newSlots);
-      // Load previous answers if they exist
-      setSelectedWords([null, null, null, null]);
-      console.log(userAnswers);
+    // Load previous answers if they exist
+    setSelectedWords([null, null, null, null]);
+    console.log(userAnswers);
   };
 
   const handleSlotClick = (index: number) => {
     setActiveSlotIndex(prev => (prev === index ? null : index)); // toggle selection
-    
+
     const wordToRemove = selectedWords[index];
     if (!wordToRemove) return;
 
@@ -58,7 +58,7 @@ export const TestScreen: React.FC = () => {
 
     setSlots(updatedSlots);
     setSelectedWords(updatedSelectedWords);
-    
+
     // Update user answers
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = updatedSelectedWords;
@@ -81,7 +81,7 @@ export const TestScreen: React.FC = () => {
     setSelectedWords(updatedSelectedWords);
     setSlots(updatedSlots);
     setActiveSlotIndex(null); // clear after selection
-    
+
     // Update user answers
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = updatedSelectedWords;
@@ -90,11 +90,11 @@ export const TestScreen: React.FC = () => {
 
   const calculateScore = () => {
     let correctCount = 0;
-    
+
     userAnswers.forEach((answer, index) => {
       const correctAnswer = questions[index].correctAnswer;
       let isCorrect = true;
-      
+
       // Check if all words match the correct answer
       for (let i = 0; i < correctAnswer.length; i++) {
         if (answer[i] !== correctAnswer[i]) {
@@ -102,22 +102,22 @@ export const TestScreen: React.FC = () => {
           break;
         }
       }
-      
+
       if (isCorrect) correctCount++;
     });
-    
+
     setScore(correctCount);
     return correctCount;
   };
 
   // Update word bank when changing questions
   useEffect(() => {
-    console.log(currentQuestionIndex,totalQuestions);
-    if (currentQuestionIndex == totalQuestions ) {
+    console.log(currentQuestionIndex, totalQuestions);
+    if (currentQuestionIndex == totalQuestions) {
 
       const finalScore = calculateScore();
       localStorage.setItem("score", JSON.stringify(score));
-      localStorage.setItem("userAnswers",JSON.stringify(userAnswers));
+      localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
       console.log(`Test completed. Score: ${finalScore}/${totalQuestions}`);
       router.push("/feedBack");
     }
@@ -129,15 +129,31 @@ export const TestScreen: React.FC = () => {
   };
 
   // Get current question data
-  const currentQuestion = questions[currentQuestionIndex] || { 
-    question: "Loading...", 
-    options: [], 
-    correctAnswer: [] 
+  const currentQuestion = questions[currentQuestionIndex] || {
+    question: "Loading...",
+    options: [],
+    correctAnswer: []
   };
-  
+
   const questionChunks = currentQuestion.question.split("_____________");
-
-
+  const handlNext=()=>{
+    const updatedUserAnswers = [...userAnswers];
+    updatedUserAnswers[currentQuestionIndex] = selectedWords;
+    setUserAnswers(updatedUserAnswers);
+    
+    if (currentQuestionIndex < totalQuestions - 1) {
+      // Move to next question
+      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      setActiveSlotIndex(null);
+    } else {
+      const finalScore = calculateScore();
+      localStorage.setItem("score", JSON.stringify(score));
+      localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+      console.log(`Test completed. Score: ${finalScore}/${totalQuestions}`);
+      router.push("/feedBack");
+      // Here you could navigate to a results page or show results
+    }
+  }
 
   return (
     <main className="justify-center items-center bg-[#F8F8F8] flex flex-col overflow-hidden px-20 py-[113px] max-md:px-5 max-md:py-[100px]">
@@ -184,6 +200,12 @@ export const TestScreen: React.FC = () => {
             />
           </div>
         </div>
+        <div className="flex justify-end w-full cursor-pointer" >
+          <div className="w-[40px] h-[40px] flex items-center justify-center bg-gray-200 rounded-full" onClick={handlNext}>
+            <IoArrowForwardSharp className="text-xl" />
+          </div>
+        </div>
+
       </section>
     </main>
   );

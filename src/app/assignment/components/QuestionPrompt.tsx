@@ -24,7 +24,10 @@ export const QuestionPrompt: React.FC<QuestionPromptProps> = ({
                 selectedWords[index] ? "bg-gray-200" : ""
               } ${activeSlotIndex === index ? "ring-2 ring-blue-500" : ""}`}
             >
-              {selectedWords[index] || "_____"}
+        <span className="inline-block w-[170px] text-center">
+  {selectedWords[index] || "_____"}
+</span>
+
             </button>
           )}
         </React.Fragment>
